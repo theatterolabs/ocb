@@ -8,7 +8,33 @@
 
  <script type="text/javascript" src="https://aframe.io/releases/1.3.0/aframe.min.js" crossorigin="anonymous"></script>
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- 
+<script  crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <script>
+	   
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '4281473368570977',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v11.0'
+    });
+      
+    FB.AppEvents.logPageView();
+	  
+  }
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+    
+    
 <style>
 
 #points {
@@ -109,6 +135,73 @@
   
 }
 
+#instructions_btn {
+  display: none;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 14%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 60%;
+  max-width: 200px;
+  height: auto;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to bottom, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+#instructions_btn:active {
+  display: block;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 14%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 60%;
+  max-width: 200px;
+  height: auto;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to top, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+ 
+#instructionScreen {
+    display: none;
+    position: relative;
+    width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 12000;
+  
+}
+
+#instructions {
+  display: none;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: auto;
+  height: 100vh;
+ 
+}
+
+
+
+
 #three {
   position: absolute;
   display: none;
@@ -153,6 +246,15 @@
    color: white;
   font-shadow: 0 5px 15px rgba(0, 0, 0, .4);
 }
+
+
+
+
+
+
+
+
+
 
 
 a-scene {
@@ -245,6 +347,54 @@ a-scene {
   
 }
 
+#watch_btn {
+  display: block;
+  position: absolute;
+  padding: 20px 0% 20px 0%;
+  bottom: 18%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 250px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+   background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+  
+}
+
+#share_btn {
+  display: block;
+  position: absolute;
+  padding: 12px 0% 12px 0%;
+  bottom: 8%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+   background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+  
+}
+
 #consent {
   display: block;
   position: absolute;
@@ -326,12 +476,23 @@ a-scene {
   border-color: #82a4ee;
   box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
   }
+    
 </style>
 
 
-</head>    
+</head> 
+    
 <body>
 <h1 id="points">+50</h1>
+<audio id="audio" src="sounds/soundtrack.mp3" loop= "true"></audio>
+	
+	<audio id="tap" src="sounds/click.mp3"></audio>
+
+<div id="instructionScreen">
+<img id="instructions" src="assets/instructions.gif">
+ <button id="instructions_btn" class="instructions_btn" onclick="hideInstructions()">Got It. Let's Go.</button>  
+</div> 
+
 
 <div id="end">
 
@@ -340,6 +501,10 @@ a-scene {
   <h1 id="endScore"></h1>
   
   <button id="playAgain_btn" class="playAgain_btn" onclick="hidePlayAgain()">Play Again</button>
+  
+  <button id="watch_btn" class="watch_btn" onclick=" window.open('https://www.youtube.com/watch?v=_CC3SdPxuwQ','_blank')"></button>
+  
+  <button id="share_btn" class="share_btn"></button>
   
 </div>
 
@@ -368,6 +533,7 @@ a-scene {
 </div>
 <!-- End Play Screen -->
 
+ 
 
 <!-- Countdown -->
 <h1 id="three">3</h1>
@@ -398,6 +564,10 @@ a-scene {
     </a-videosphere>
   
 </a-scene> 
+    
+
+  
+
  
 <script type="text/javascript">
 
@@ -414,17 +584,25 @@ let delayInMilliseconds = 1000;
 let points = document.getElementById('points');
 
 let play = document.getElementById('play');
-
 let consent = document.getElementById('consent');
 
 let screen_record = document.getElementById('screen_record');
 
+
+
 let play_btn = document.getElementById('play_btn');
 
+let watch_btn = document.getElementById('watch_btn');
+
+let share_btn = document.getElementById('share_btn');
+
+let instructionScreen = document.getElementById('instructionScreen');
+let instructions = document.getElementById('instructions');
+
+let instructions_btn = document.getElementById('instructions_btn');
+
 let three = document.getElementById('three');
-
 let two = document.getElementById('two');
-
 let one = document.getElementById('one');
 
 let video = document.getElementById('video');
@@ -438,25 +616,45 @@ startPoints += 50;
 
 function hideConsent() {
  $("#consent").hide();
+  tap();
   
 }
 
 
 function hidePlay() {
   play.style.display = 'none';
-  setTimeout(function() {
+  instructionScreen.style.display = 'block';
+  instructions.style.display = 'block';
+  instructions_btn.style.display = 'block';
+  tap();
+ 
+}
+
+
+function hideInstructions() {
+  instructionScreen.style.display = 'none';
+  instructions.style.display = 'none';
+  instructions_btn.style.display = 'none';
+  tap();
+  
+   setTimeout(function() {
   countdown();
+     playAudio();
 }, 500);
 }
+
 
 function hidePlayAgain() {
   end.style.display = 'none';
   startPoints = 0;
   countdown();
+  tap();
+  audio.play();
   
 }
 
 
+<!-- Countdown -->
 function countdown() {
    three.style.display = 'block';
   setTimeout(function() {
@@ -480,7 +678,9 @@ function countdown3() {
     videoControl();
 }, 1000);
 }
+<!-- End Countdown -->
 
+<!-- Video Control -->
 function videoControl() {
   video.muted = true;
   video.play();
@@ -494,9 +694,18 @@ function videoControl() {
     coin_r.pause();
     end.style.display = 'block';
     endScore.innerHTML = "You Scored" + "&nbsp" + startPoints;
+    audio.pause();
    
 }, 30000);
 }
+
+<!-- End Video Control -->
+
+<!-- Coin Control-->
+
+<!--End Coin Control -->
+
+
 
 
 // Coin Right  
@@ -535,12 +744,13 @@ AFRAME.registerComponent('random-delay1', {
                coin_r.setAttribute('visible',false)
                points.style.display = "block";
                increasePoints();
+             tap();
                setTimeout(function() {
                 points.style.display = "none";
                }, 500);
 
             });
-          play_btn.addEventListener('click', () => {
+          instructions_btn.addEventListener('click', () => {
             setTimeout(function() {
             setAnimation(min1, max1)
               
@@ -599,6 +809,7 @@ AFRAME.registerComponent('random-delay2', {
                 coin_l.setAttribute('visible',false)
                 points.style.display = "block";
                 increasePoints();
+             tap();
                setTimeout(function() {
                 points.style.display = "none";
                }, 500);
@@ -606,7 +817,7 @@ AFRAME.registerComponent('random-delay2', {
             });
             
           
-          play_btn.addEventListener('click', () => {
+          instructions_btn.addEventListener('click', () => {
             setTimeout(function() {
           
                   setAnimation(min2, max2)
@@ -618,6 +829,85 @@ AFRAME.registerComponent('random-delay2', {
     });
 
 // End of Coin Left
+
+
+function tap() {
+	
+		var tapAudio = document.getElementById("tap");
+        	tapAudio.play();
+        	tapAudio.volume = 1;
+
+	}
+	
+	
+	
+	function playAudio() {
+       
+        
+        // Set the name of the "hidden" property and the change event for visibility
+        var hidden, visibilityChange; 
+        if (typeof document.hidden !== "undefined") {
+          hidden = "hidden";
+          visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") { // Firefox up to v17
+          hidden = "mozHidden";
+          visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") { // Chrome up to v32, Android up to v4.4, Blackberry up to v10
+          hidden = "webkitHidden";
+          visibilityChange = "webkitvisibilitychange";
+        }
+        
+        var audio = document.getElementById("audio");
+        audio.play();
+        audio.volume = 0.5;
+
+        // If the page is hidden, pause the video;
+        // if the page is shown, play the video
+        function handleVisibilityChange() {
+          if (document[hidden]) {
+            audio.pause();
+          } else {
+            audio.play();
+            audio.volume = 0.5;
+          }
+        }
+
+        // Warn if the browser doesn't support addEventListener or the Page Visibility API
+        if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
+          alert("This demo requires a modern browser that supports the Page Visibility API.");
+        } else {
+          // Handle page visibility change   
+          document.addEventListener(visibilityChange, handleVisibilityChange, false);
+            
+         
+        }
+
+    } 
+
+$(function () {
+
+$('#share_btn').on('click', function(e) {
+    e.preventDefault();
+
+    FB.ui(
+	    {
+		method: 'share',
+        	href: 'https://theatterolabs.github.io/ocb/',
+		image: 'https://theatterolabs.github.io/ocb/assets/FBimg.png',
+		description: 'Play The Thrill',
+		title: 'Taste The Thrill',    
+  		
+	    },
+	    function(response) {
+		if (response && response.post_id) {
+		    alert('Post was published.');
+		} else {
+		    alert('Post was not published.');
+		}
+	    }
+    );
+});
+});
 </script>
 </body>
 
