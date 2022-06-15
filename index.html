@@ -1,0 +1,625 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       
+
+ <script type="text/javascript" src="https://aframe.io/releases/1.3.0/aframe.min.js" crossorigin="anonymous"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+<style>
+
+#points {
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 70px;
+  opacity: 0.9;
+   color: white;
+  font-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+}
+
+
+#play {
+    display: block;
+    position: relative;
+    width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 9999;
+  
+}
+
+
+#background {
+  display: block;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: auto;
+  height: 100vh;
+  z-index: 9998;
+  
+}
+
+#play_btn {
+  display: block;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 250px;
+  height: auto;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to bottom, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+#play_btn:active {
+  display: block;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 250px;
+  height: auto;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to top, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+#screen_record {
+  display: block;
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  height: auto;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+  
+}
+
+#three {
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100px;
+  opacity: 0.9;
+  color: white;
+  font-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+}
+
+#two {
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100px;
+  opacity: 0.9;
+   color: white;
+  font-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+}
+
+#one {
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100px;
+  opacity: 0.9;
+   color: white;
+  font-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+}
+
+
+a-scene {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+#end {
+    display: none;
+    position: relative;
+    width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 11000;
+  
+}
+
+
+#end-background {
+  display: block;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: auto;
+  height: 100vh;
+  z-index: 10999;
+  
+}
+
+
+#endScore {
+  
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: white;
+  background-color: #101951;
+  padding: 5px 20px 5px 20px;
+  position: absolute;
+  bottom: 47%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 11000;
+  
+}
+
+#playAgain_btn {
+  display: block;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 35%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to bottom, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+#playAgain_btn:active {
+  display: block;
+  position: absolute;
+  padding: 10px 0% 10px 0%;
+  bottom: 35%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to top, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  
+}
+
+#consent {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 11000;
+  
+}
+
+#agePopup {
+  position: absolute;
+  display: block;
+  background: black;
+  opacity: 0.9;
+  width: 80%;
+  height: auto;
+  max-width: 300px;
+  max-height: 300px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border:1px solid #c9a652;
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, .4);
+  padding: 10px 10px 10px 10px;
+}
+
+#agetext {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+   color: white;
+  text-align: center;
+}
+
+#agesubtext {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+   color: white;
+  text-align: center;
+}
+
+#enter_btn {
+   display: block;
+   margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0% 10px 0%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to bottom, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  }
+
+#enter_btn:active {
+   display: block;
+   margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0% 10px 0%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  z-index: 11000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-image: linear-gradient(to top, #093abf, #0d0861);
+  border-color: #82a4ee;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+  }
+</style>
+
+
+</head>    
+<body>
+<h1 id="points">+50</h1>
+
+<div id="end">
+
+  <img id="end-background" src="images/EndScreen.png">
+  
+  <h1 id="endScore"></h1>
+  
+  <button id="playAgain_btn" class="playAgain_btn" onclick="hidePlayAgain()">Play Again</button>
+  
+</div>
+
+<!-- End of End Screen -->
+
+
+<!-- Play Screen -->
+
+<div id="play">
+ <div id="consent">
+   <div id="agePopup">
+     <h1 id="agetext">You must be of legal drinking age to enter our site.</h1>
+     <h1 id="agesubtext">By entering our site, you agree to the terms and conditions, privacy policy and other directives mentioned on the site.</h1>
+     <button id="enter_btn" class="enter_btn" onclick="hideConsent()">Enter</button>
+   </div>
+ </div>
+  
+  <img id="background" src="assets/PlayScreen.png">
+  
+  <button id="play_btn" class="play_btn" onclick="hidePlay()">Play</button>
+  
+  <h1 id="screen_record">Screen Record<br> Your Adventure</h1>
+  
+ 
+  
+</div>
+<!-- End Play Screen -->
+
+
+<!-- Countdown -->
+<h1 id="three">3</h1>
+<h1 id="two">2</h1>
+<h1 id="one">1</h1>
+<!-- End Countdown -->
+
+<a-scene cursor="rayOrigin:mouse">
+  <!-- Asset Management-->
+  <a-assets>
+    
+      <video id="video"  muted autoplay loop  crossorigin="anonymous" playsinline webkit-playsinline src="https://theatterolabs.github.io/ski2x.mp4" type="video/mp4">
+      </video>
+    <img id="coin" crossorigin="anonymous" src="assets/logo.png">
+
+    
+ </a-assets>
+  
+  <!-- Camera -->
+  <a-camera>
+    </a-camera>
+ 
+    <a-image id="coin_r" src="#coin" width="35" height="35" random-delay1 animation1> </a-image>
+  
+   <a-image id="coin_l" src="#coin" width="35" height="35" random-delay2 animation2 > </a-image>
+  <!-- 360 Video -->
+  <a-videosphere src="#video" rotation="0 -90 0" loop="false">
+    </a-videosphere>
+  
+</a-scene> 
+ 
+<script type="text/javascript">
+
+let startPoints = 0;
+
+let endScore = document.getElementById('endScore');
+
+let coin_r = document.querySelector("#coin_r");
+
+let coin_l = document.querySelector("#coin_l");
+
+let delayInMilliseconds = 1000;
+
+let points = document.getElementById('points');
+
+let play = document.getElementById('play');
+
+let consent = document.getElementById('consent');
+
+let screen_record = document.getElementById('screen_record');
+
+let play_btn = document.getElementById('play_btn');
+
+let three = document.getElementById('three');
+
+let two = document.getElementById('two');
+
+let one = document.getElementById('one');
+
+let video = document.getElementById('video');
+
+let end = document.getElementById('end');
+
+function increasePoints() {
+startPoints += 50;
+  
+}
+
+function hideConsent() {
+ $("#consent").hide();
+  
+}
+
+
+function hidePlay() {
+  play.style.display = 'none';
+  setTimeout(function() {
+  countdown();
+}, 500);
+}
+
+function hidePlayAgain() {
+  end.style.display = 'none';
+  startPoints = 0;
+  countdown();
+  
+}
+
+
+function countdown() {
+   three.style.display = 'block';
+  setTimeout(function() {
+  three.style.display = 'none';
+    countdown2();
+}, 1000);
+}
+
+function countdown2() {
+   two.style.display = 'block';
+  setTimeout(function() {
+  two.style.display = 'none';
+    countdown3();
+}, 1000);
+}
+
+function countdown3() {
+   one.style.display = 'block';
+  setTimeout(function() {
+  one.style.display = 'none';
+    videoControl();
+}, 1000);
+}
+
+function videoControl() {
+  video.muted = true;
+  video.play();
+  coin_l.play();
+  coin_r.play();
+  
+  setTimeout(function() {
+  one.style.display = 'none';
+    video.pause();
+    coin_l.pause();
+    coin_r.pause();
+    end.style.display = 'block';
+    endScore.innerHTML = "You Scored" + "&nbsp" + startPoints;
+   
+}, 30000);
+}
+
+
+// Coin Right  
+AFRAME.registerComponent('random-delay1', {
+        init: function (el) {
+            // this.el points to the element the component is placed on 
+            var el = this.el;
+            let min1 = 0;
+            let max1 = 3000;
+          
+            // initial animation
+             //setAnimation(min1, max1)
+           
+
+            function setAnimation(min1, max1) {
+                // generates a random number between the set min and max
+                let delay1 = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
+                let animation1 = `property: position; delay: ${delay1}; from: 50 0 -500; to: 50 0 0; dur: 2000; easing: linear; `
+                
+                // updating the animation component with the .setAttribute function
+               
+                //code
+                el.setAttribute('visible', true)
+           
+                el.setAttribute('animation', animation1)
+                
+                
+            }
+                      
+                      
+            el.addEventListener('animationcomplete', () => {
+                setAnimation(min1, max1)
+            });
+          
+           el.addEventListener('click', () => {
+               coin_r.setAttribute('visible',false)
+               points.style.display = "block";
+               increasePoints();
+               setTimeout(function() {
+                points.style.display = "none";
+               }, 500);
+
+            });
+          play_btn.addEventListener('click', () => {
+            setTimeout(function() {
+            setAnimation(min1, max1)
+              
+              }, 3500);
+             });
+          
+          
+        }
+    });
+
+
+// End of Coin Right
+
+
+
+// Coin Left
+
+AFRAME.registerComponent('random-delay2', {
+        
+        schema: {
+            target : { type : "selector"}
+        },
+        
+        init: function (el) {
+            // this.el points to the element the component is placed on 
+            var el = this.el;
+            let min2 = 0;
+            let max2 = 3000;
+            // initial animation
+             //
+           
+         
+            //setAnimation(min2, max2)
+        
+          
+
+            function setAnimation(min2, max2) {
+                // generates a random number between the set min and max
+                let delay2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
+                let animation2 = `property: position; delay: ${delay2}; from: -50 0 -500; to: -50 0 0; dur: 2000; easing: linear; `
+                
+                // updating the animation component with the .setAttribute function
+            
+               
+                      el.setAttribute('visible', true)
+           
+                      el.setAttribute('animation', animation2)
+           
+             
+             }
+                          
+            el.addEventListener('animationcomplete', () => {
+                setAnimation(min2, max2)
+            });
+           el.addEventListener('click', () => {
+                coin_l.setAttribute('visible',false)
+                points.style.display = "block";
+                increasePoints();
+               setTimeout(function() {
+                points.style.display = "none";
+               }, 500);
+
+            });
+            
+          
+          play_btn.addEventListener('click', () => {
+            setTimeout(function() {
+          
+                  setAnimation(min2, max2)
+              
+             }, 3500);
+             }); 
+        
+        }
+    });
+
+// End of Coin Left
+</script>
+</body>
+
+</html>
+  
